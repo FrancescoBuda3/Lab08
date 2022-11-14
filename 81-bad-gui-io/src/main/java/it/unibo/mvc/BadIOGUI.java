@@ -53,23 +53,7 @@ public class BadIOGUI {
         canvas.add(newPanel, BorderLayout.CENTER);
         newPanel.add(write);
 
-        final JButton read = new JButton("read");
-        newPanel.add(read);
-        read.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent arg0) {
-                try {
-                    final List<String> lines = Files.readAllLines(new File(PATH).toPath());
-                    for (final String s : lines) {
-                        System.out.println(s); //NOPMD
-                    }
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
-                    e.printStackTrace(); // NOPMD: allowed as this is just an exercise
-                }
-            }
-        });
+        
 
         write.addActionListener(new ActionListener() {
             @Override
@@ -86,6 +70,24 @@ public class BadIOGUI {
                 } catch (IOException e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace(); // NOPMD: allowed as this is just an exercise
+                }
+            }
+        });
+        
+        final JButton read = new JButton("read");
+        newPanel.add(read);
+        read.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent arg0) {
+                try {
+                    final List<String> lines = Files.readAllLines(new File(PATH).toPath());
+                    for (final String s : lines) {
+                        System.out.println(s); //NOPMD
+                    }
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace(); // NOPMD: allowed as this is just an exercise
                 }
             }
         });
