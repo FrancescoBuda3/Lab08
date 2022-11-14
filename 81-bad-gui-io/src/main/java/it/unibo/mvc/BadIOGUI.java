@@ -55,13 +55,20 @@ public class BadIOGUI {
 
         final JButton read = new JButton("read");
         newPanel.add(read);
-        read.addActionListener(new ActionListener(){
+        read.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("stringa");
+            public void actionPerformed(final ActionEvent arg0) {
+                try {
+                    final List<String> lines = Files.readAllLines(new File(PATH).toPath());
+                    for (final String s : lines) {
+                        System.out.println(s); //NOPMD
+                    }
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(frame, e, "Error", JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace(); // NOPMD: allowed as this is just an exercise
+                }
             }
-            
         });
 
         write.addActionListener(new ActionListener() {
