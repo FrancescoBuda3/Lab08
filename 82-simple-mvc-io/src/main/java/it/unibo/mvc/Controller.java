@@ -2,7 +2,6 @@ package it.unibo.mvc;
 
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,12 +12,21 @@ import java.io.OutputStream;
  */
 public class Controller {
 
-    public static String HOME = System.getProperty("user.home");
-    public static String SEP = System.getProperty("file.separator");
+    /**
+     * 
+     */
+    private static String HOME = System.getProperty("user.home");
+    /**
+     * 
+     */
+    private static String SEP = System.getProperty("file.separator");
 
     private File current;
 
-    public Controller(){
+    /**
+     * 
+     */
+    public Controller() {
         this.current = new File(HOME + SEP + "output.txt");
     }
 
@@ -38,8 +46,7 @@ public class Controller {
     public void writeString(String s) throws IOException {
         try(final OutputStream file = new FileOutputStream(this.current);
         final DataOutputStream out = new DataOutputStream(file);) {
-            
-            out.writeUTF(s); 
+             out.writeUTF(s); 
         }
     }
 
