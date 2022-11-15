@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 
 /**
@@ -46,7 +47,7 @@ public final class SimpleGUIWithFileChooser {
         JFileChooser browser = new JFileChooser();
         browse.addActionListener(new ActionListener(){
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(final ActionEvent arg0) {
                 switch (browser.showSaveDialog(browse)) {
 
                     case JFileChooser.APPROVE_OPTION:
@@ -60,6 +61,20 @@ public final class SimpleGUIWithFileChooser {
                         JOptionPane.showMessageDialog(frame, "An error has occurred while choosing the file");
                 }          
             }    
+        });
+
+        save.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(final ActionEvent arg0) {
+                try {
+                    cont.writeString(text.getText());
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(frame, "errore nella scrittura della stringa");
+                }
+                
+            }
+            
         });
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
