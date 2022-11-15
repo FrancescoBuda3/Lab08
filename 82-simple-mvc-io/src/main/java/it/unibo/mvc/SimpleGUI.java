@@ -47,5 +47,4 @@ public final class SimpleGUI {
         new SimpleGUI().display();
     }
 
-
 }
