@@ -1,6 +1,11 @@
 package it.unibo.mvc;
 
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 
 /**
@@ -18,8 +23,26 @@ public class Controller {
     }
 
 
-    public void setCurrentFile (File f) {
+    public void setCurrentFile(File f) {
         this.current = f;
     }
+
+    public File getCurrentFile() {
+        return this.current;
+    }
+
+    public String getPathString() {
+        return this.current.getPath();
+    }
+
+    public void writeString(String s) throws IOException {
+        try(final OutputStream file = new FileOutputStream(this.current);
+        final DataOutputStream out = new DataOutputStream(file);) {
+            
+            out.writeUTF(s); 
+        }
+    }
+
+
 
 }
