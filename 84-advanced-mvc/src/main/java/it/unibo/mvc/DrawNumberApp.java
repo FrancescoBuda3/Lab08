@@ -1,7 +1,11 @@
 package it.unibo.mvc;
 
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,7 +36,23 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
             view.setObserver(this);
             view.start();
         }
-        this.model = new DrawNumberImpl(MIN, MAX, ATTEMPTS);
+
+        int max;
+        int min;
+        int attempts;
+
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("./src/main/resources/config.yml")))) {
+
+            min = Integer.valueOf(in.readLine().split(": ")[1]);
+            max = Integer.valueOf(in.readLine().split(": ")[1]);
+            attempts = Integer.valueOf(in.readLine().split(": ")[1]);
+        } catch (IOException e) {
+            e.printStackTrace();
+            min = MIN;
+            max = MAX;
+            attempts = ATTEMPTS;
+        } 
+        this.model = new DrawNumberImpl(min, max, attempts);
 
     }
     
@@ -73,7 +93,11 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
      * @throws FileNotFoundException 
      */
     public static void main(final String... args) throws FileNotFoundException {
-        new DrawNumberApp(new DrawNumberViewImpl());
+        new DrawNumberApp(
+            new DrawNumberViewImpl(),
+            new DrawNumberViewImpl(),
+            new PrintStreamView(System.out),
+            new PrintStreamView("fileLog"));
     }
 
 }
